@@ -85,6 +85,7 @@ module CalendarHelper
       :table_class         => 'calendar',
       :month_name_class    => 'monthName',
       :other_month_class   => 'otherMonth',
+      :other_month_events  => true,
       :day_name_class      => 'dayName',
       :day_class           => 'day',
       :abbrev              => true,
@@ -145,17 +146,7 @@ module CalendarHelper
     end unless first.wday == first_weekday
 
     first.upto(last) do |cur|
-      cell_text, cell_attrs = block.call(cur)
-      cell_text  ||= cur.mday
-      cell_attrs ||= {}
-      cell_attrs[:headers] = th_id(cur, options[:table_id])
-      cell_attrs[:class] ||= options[:day_class]
-      cell_attrs[:class] += " weekendDay" if [0, 6].include?(cur.wday)
-      today = (Time.respond_to?(:zone) && !(zone = Time.zone).nil? ? zone.now.to_date : Date.today)
-      cell_attrs[:class] += " today" if (cur == today) and options[:show_today]
-
-      cal << generate_cell(cell_text, cell_attrs)
-      cal << "</tr><tr>" if cur.wday == last_weekday
+      set_cell(cur)
     end
 
     # next month
@@ -208,8 +199,25 @@ module CalendarHelper
     if options[:accessible]
       cell_text += %(<span class="hidden"> #{month_names[date.month]}</span>)
     end
+    if options[:other_month_events]
+      set_cell(date)
+    else
+      generate_cell(date.day, cell_attrs)
+    end
+  end
+  
+  def set_cell(d)
+    cell_text, cell_attrs = block.call(d)
+    cell_text  ||= d.mday
+    cell_attrs ||= {}
+    cell_attrs[:headers] = th_id(d, options[:table_id])
+    cell_attrs[:class] ||= options[:day_class]
+    cell_attrs[:class] += " weekendDay" if [0, 6].include?(d.wday)
+    today = (Time.respond_to?(:zone) && !(zone = Time.zone).nil? ? zone.now.to_date : Date.today)
+    cell_attrs[:class] += " today" if (d == today) and options[:show_today]
 
-    generate_cell(date.day, cell_attrs)
+    cal << generate_cell(cell_text, cell_attrs)
+    cal << "</tr><tr>" if d.wday == last_weekday
   end
 
   # Calculates id for th element.
