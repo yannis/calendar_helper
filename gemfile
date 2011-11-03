@@ -1,0 +1,4 @@
+source 'http://rubygems.org'
+env :development, :test do
+  gem 'flexmock'
+end

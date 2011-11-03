@@ -1,8 +1,7 @@
 require 'rubygems'
-require 'isolate/now'
+require 'bundler'
 require 'rake'
 require 'rake/rdoctask'
-require 'hoe'
 require './lib/calendar_helper.rb'
 
 Hoe.spec 'calendar_helper' do

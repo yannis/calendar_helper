@@ -1,5 +1,9 @@
 === 0.2.4 / 2010-05-21
 
+* Events can also be shown in other months [Yannis Jaquet]
+
+=== 0.2.4 / 2010-05-21
+
 * Calendar Title can be customized [Benjamin Lieb]
 
 === 0.2.3 / 2010-05-21
