@@ -75,7 +75,7 @@ module CalendarHelper
   #
   
     
-    MONTH_NAMES = (!defined?(I18n) || I18n.t("date.month_names").include?("missing")) ? Date::MONTHNAMES.dup : I18n.t("date.month_names")
+  MONTH_NAMES = (!defined?(I18n) || I18n.t("date.month_names").include?("missing")) ? Date::MONTHNAMES.dup : I18n.t("date.month_names")
   
   def calendar(options = {}, &block)
     raise(ArgumentError, "No year given")  unless options.has_key?(:year)
