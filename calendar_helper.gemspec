@@ -1,4 +1,6 @@
-$:.push File.expand_path("../lib", __FILE__)
+# -*- encoding: utf-8 -*-
+$:.unshift File.expand_path("../lib", __FILE__)
+# $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
 require "calendar_helper/version"
